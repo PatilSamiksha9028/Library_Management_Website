@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Athena | Modern Library Management System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Sidebar Navigation -->
+  <aside class="sidebar">
+    <div class="brand-section">
+      <div class="brand-icon">
+        <i class="fa-solid fa-book-bookmark"></i>
+      </div>
+      <div class="brand-text">
+        <h1>Athena Lib</h1>
+        <span>Management</span>
+      </div>
+    </div>
+
+    <ul class="nav-links">
+      <li class="nav-item active" data-view="dashboard">
+        <i class="fa-solid fa-chart-pie"></i>
+        <span>Dashboard</span>
+      </li>
+      <li class="nav-item" data-view="books">
+        <i class="fa-solid fa-book"></i>
+        <span>Book Catalog</span>
+      </li>
+      <li class="nav-item" data-view="issues">
+        <i class="fa-solid fa-arrow-right-arrow-left"></i>
+        <span>Circulation</span>
+      </li>
+      <li class="nav-item" data-view="members">
+        <i class="fa-solid fa-users"></i>
+        <span>Members</span>
+      </li>
+    </ul>
+
+    <div class="sidebar-footer">
+      <div class="user-avatar">AD</div>
+      <div class="user-info">
+        <div class="name">Administrator</div>
+        <div class="role">Chief Librarian</div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Application Body -->
+  <main class="main-content">
+    <header class="topbar">
+      <div class="topbar-title">
+        <h2 id="current-view-title">Dashboard Overview</h2>
+      </div>
+      <div class="topbar-actions">
+        <button class="btn btn-secondary btn-sm theme-toggle-btn" id="theme-toggle" title="Switch Theme" aria-label="Toggle Theme">
+          <i class="fa-solid fa-moon"></i>
+          <span id="theme-text">Light Mode</span>
+        </button>
+        <button class="btn btn-primary btn-sm" id="btn-quick-issue">
+          <i class="fa-solid fa-plus"></i> Issue Book
+        </button>
+      </div>
+    </header>
+
+    <div class="page-wrapper">
+
+      <!-- ================= VIEW 1: DASHBOARD ================= -->
+      <section id="view-dashboard" class="page-view active">
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-icon indigo">
+              <i class="fa-solid fa-book"></i>
+            </div>
+            <div class="stat-info">
+              <h3 id="stat-total-books">0</h3>
+              <p>Total Copies in Stock</p>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon cyan">
+              <i class="fa-solid fa-circle-check"></i>
+            </div>
+            <div class="stat-info">
+              <h3 id="stat-avail-books">0</h3>
+              <p>Available on Shelf</p>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon amber">
+              <i class="fa-solid fa-hand-holding-hand"></i>
+            </div>
+            <div class="stat-info">
+              <h3 id="stat-active-issues">0</h3>
+              <p>Currently Borrowed</p>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon emerald">
+              <i class="fa-solid fa-user-group"></i>
+            </div>
+            <div class="stat-info">
+              <h3 id="stat-members">0</h3>
+              <p>Registered Members</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Recent Circulation Activities -->
+        <div style="margin-top: 28px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+            <h3 style="font-size: 1.15rem; font-weight: 700;">Recent Borrow Activities</h3>
+            <button class="btn btn-secondary btn-sm" onclick="switchView('issues')">View All Issues</button>
+          </div>
+          <div class="table-card">
+            <div class="table-responsive">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Book Title</th>
+                    <th>Borrower</th>
+                    <th>Issue Date</th>
+                    <th>Due Date</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody id="dashboard-recent-table">
+                  <!-- Dynamic content -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= VIEW 2: BOOKS CATALOG ================= -->
+      <section id="view-books" class="page-view">
+        <div class="toolbar-row">
+          <div class="search-box">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="books-search-input" placeholder="Search title, author, or ISBN...">
+          </div>
+
+          <div class="filter-group">
+            <select id="books-category-filter" class="filter-select">
+              <option value="All">All Categories</option>
+              <option value="Classic Fiction">Classic Fiction</option>
+              <option value="Computer Science">Computer Science</option>
+              <option value="History / Anthropology">History / Anthropology</option>
+              <option value="Sci-Fi">Sci-Fi</option>
+              <option value="Self-Improvement">Self-Improvement</option>
+            </select>
+
+            <button class="btn btn-primary" id="btn-add-book">
+              <i class="fa-solid fa-plus"></i> Add New Book
+            </button>
+          </div>
+        </div>
+
+        <div class="books-grid" id="books-grid-container" style="margin-top: 20px;">
+          <!-- Dynamic Book Cards -->
+        </div>
+      </section>
+
+      <!-- ================= VIEW 3: CIRCULATION / ISSUES ================= -->
+      <section id="view-issues" class="page-view">
+        <div class="toolbar-row">
+          <div class="search-box">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="issues-search-input" placeholder="Filter by book title or member name...">
+          </div>
+
+          <div class="filter-group">
+            <select id="issues-status-filter" class="filter-select">
+              <option value="All">All Records</option>
+              <option value="issued">Currently Issued</option>
+              <option value="returned">Returned</option>
+            </select>
+            <button class="btn btn-primary" id="btn-open-issue-modal">
+              <i class="fa-solid fa-paper-plane"></i> Issue a Book
+            </button>
+          </div>
+        </div>
+
+        <div class="table-card" style="margin-top: 20px;">
+          <div class="table-responsive">
+            <table>
+              <thead>
+                <tr>
+                  <th>Record ID</th>
+                  <th>Book Title</th>
+                  <th>Member</th>
+                  <th>Issue Date</th>
+                  <th>Due Date</th>
+                  <th>Return Date</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="issues-table-body">
+                <!-- Dynamic Content -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= VIEW 4: MEMBERS ================= -->
+      <section id="view-members" class="page-view">
+        <div class="toolbar-row">
+          <div class="search-box">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="members-search-input" placeholder="Search members by name or email...">
+          </div>
+
+          <button class="btn btn-primary" id="btn-add-member">
+            <i class="fa-solid fa-user-plus"></i> Add Member
+          </button>
+        </div>
+
+        <div class="table-card" style="margin-top: 20px;">
+          <div class="table-responsive">
+            <table>
+              <thead>
+                <tr>
+                  <th>Member ID</th>
+                  <th>Full Name</th>
+                  <th>Email</th>
+                  <th>Phone</th>
+                  <th>Membership Plan</th>
+                  <th>Joined Date</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="members-table-body">
+                <!-- Dynamic Content -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- ================= MODALS ================= -->
+
+  <!-- 1. Add / Edit Book Modal -->
+  <div class="modal-overlay" id="modal-book">
+    <div class="modal-container">
+      <div class="modal-header">
+        <h3 id="modal-book-title">Add New Book</h3>
+        <button class="modal-close" onclick="closeModal('modal-book')">&times;</button>
+      </div>
+      <form id="form-book">
+        <input type="hidden" id="book-form-id">
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="book-input-title">Book Title *</label>
+            <input type="text" id="book-input-title" class="form-input" required placeholder="e.g. Design Patterns">
+          </div>
+          <div class="form-group">
+            <label for="book-input-author">Author *</label>
+            <input type="text" id="book-input-author" class="form-input" required placeholder="e.g. Erich Gamma">
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+            <div class="form-group">
+              <label for="book-input-isbn">ISBN</label>
+              <input type="text" id="book-input-isbn" class="form-input" placeholder="978-0201633610">
+            </div>
+            <div class="form-group">
+              <label for="book-input-category">Category</label>
+              <input type="text" id="book-input-category" class="form-input" placeholder="Computer Science">
+            </div>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+            <div class="form-group">
+              <label for="book-input-year">Publication Year</label>
+              <input type="number" id="book-input-year" class="form-input" value="2024">
+            </div>
+            <div class="form-group">
+              <label for="book-input-copies">Total Copies *</label>
+              <input type="number" id="book-input-copies" class="form-input" min="1" value="3" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="book-input-cover">Cover Image URL (Optional)</label>
+            <input type="url" id="book-input-cover" class="form-input" placeholder="https://images.unsplash.com/...">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" onclick="closeModal('modal-book')">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="btn-save-book">Save Book</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 2. Issue Book Modal -->
+  <div class="modal-overlay" id="modal-issue">
+    <div class="modal-container">
+      <div class="modal-header">
+        <h3>Issue Book to Member</h3>
+        <button class="modal-close" onclick="closeModal('modal-issue')">&times;</button>
+      </div>
+      <form id="form-issue">
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="issue-select-book">Select Book *</label>
+            <select id="issue-select-book" class="form-select" required>
+              <!-- Filled via JS -->
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="issue-select-member">Select Member *</label>
+            <select id="issue-select-member" class="form-select" required>
+              <!-- Filled via JS -->
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="issue-input-duration">Loan Duration (Days)</label>
+            <input type="number" id="issue-input-duration" class="form-input" value="14" min="1" max="90" required>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" onclick="closeModal('modal-issue')">Cancel</button>
+          <button type="submit" class="btn btn-primary">Confirm Checkout</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 3. Add Member Modal -->
+  <div class="modal-overlay" id="modal-member">
+    <div class="modal-container">
+      <div class="modal-header">
+        <h3>Register New Member</h3>
+        <button class="modal-close" onclick="closeModal('modal-member')">&times;</button>
+      </div>
+      <form id="form-member">
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="member-input-name">Full Name *</label>
+            <input type="text" id="member-input-name" class="form-input" required placeholder="John Doe">
+          </div>
+          <div class="form-group">
+            <label for="member-input-email">Email Address *</label>
+            <input type="email" id="member-input-email" class="form-input" required placeholder="john.doe@example.com">
+          </div>
+          <div class="form-group">
+            <label for="member-input-phone">Phone Number</label>
+            <input type="tel" id="member-input-phone" class="form-input" placeholder="+1 555-0123">
+          </div>
+          <div class="form-group">
+            <label for="member-select-type">Membership Plan</label>
+            <select id="member-select-type" class="form-select">
+              <option value="Student">Student (Standard)</option>
+              <option value="Faculty">Faculty (Extended)</option>
+              <option value="General">General Public</option>
+              <option value="VIP">Premium VIP</option>
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" onclick="closeModal('modal-member')">Cancel</button>
+          <button type="submit" class="btn btn-primary">Register Member</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast Notification Center -->
+  <div id="toast-container"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,136 @@
+{
+  "books": [
+    {
+      "id": "b-101",
+      "title": "The Great Gatsby",
+      "author": "F. Scott Fitzgerald",
+      "isbn": "978-0743273565",
+      "category": "Classic Fiction",
+      "publishedYear": 1925,
+      "totalCopies": 5,
+      "availableCopies": 3,
+      "coverImage": "https://covers.openlibrary.org/b/id/13028546-L.jpg",
+      "addedAt": "2026-10-03T07:29:22.574Z"
+    },
+    {
+      "id": "b-102",
+      "title": "Clean Code: A Handbook of Agile Software Craftsmanship",
+      "author": "Robert C. Martin",
+      "isbn": "978-0132350884",
+      "category": "Computer Science",
+      "publishedYear": 2008,
+      "totalCopies": 4,
+      "availableCopies": 3,
+      "coverImage": "https://covers.openlibrary.org/b/id/15126503-L.jpg",
+      "addedAt": "2026-10-03T07:29:22.575Z"
+    },
+    {
+      "id": "b-103",
+      "title": "Sapiens: A Brief History of Humankind",
+      "author": "Yuval Noah Harari",
+      "isbn": "978-0062316097",
+      "category": "History / Anthropology",
+      "publishedYear": 2011,
+      "totalCopies": 6,
+      "availableCopies": 5,
+      "coverImage": "https://covers.openlibrary.org/b/id/8594920-L.jpg",
+      "addedAt": "2026-10-03T07:29:22.575Z"
+    },
+    {
+      "id": "b-104",
+      "title": "Dune",
+      "author": "Frank Herbert",
+      "isbn": "978-0441172719",
+      "category": "Sci-Fi",
+      "publishedYear": 1965,
+      "totalCopies": 3,
+      "availableCopies": 2,
+      "coverImage": "https://covers.openlibrary.org/b/id/15166231-L.jpg",
+      "addedAt": "2026-10-03T07:29:22.575Z"
+    },
+    {
+      "id": "b-105",
+      "title": "Atomic Habits",
+      "author": "James Clear",
+      "isbn": "978-0735211292",
+      "category": "Self-Improvement",
+      "publishedYear": 2018,
+      "totalCopies": 8,
+      "availableCopies": 6,
+      "coverImage": "https://covers.openlibrary.org/b/id/12886417-L.jpg",
+      "addedAt": "2026-10-03T07:29:22.575Z"
+    }
+  ],
+  "members": [
+    {
+      "id": "m-201",
+      "name": "Alex Rivera",
+      "email": "alex.rivera@example.com",
+      "phone": "+1 555-0199",
+      "membershipType": "Student",
+      "joinedDate": "2025-01-10"
+    },
+    {
+      "id": "m-202",
+      "name": "Sophia Chen",
+      "email": "sophia.c@example.com",
+      "phone": "+1 555-0144",
+      "membershipType": "Faculty",
+      "joinedDate": "2024-11-04"
+    },
+    {
+      "id": "m-203",
+      "name": "Liam Vance",
+      "email": "liam.v@example.com",
+      "phone": "+1 555-0182",
+      "membershipType": "General",
+      "joinedDate": "2025-02-15"
+    }
+  ],
+  "issues": [
+    {
+      "id": "iss-1791014718920",
+      "bookId": "b-101",
+      "bookTitle": "The Great Gatsby",
+      "memberId": "m-201",
+      "memberName": "Alex Rivera",
+      "issueDate": "2026-10-03",
+      "dueDate": "2026-10-17",
+      "returnDate": null,
+      "status": "issued"
+    },
+    {
+      "id": "iss-301",
+      "bookId": "b-101",
+      "bookTitle": "The Great Gatsby",
+      "memberId": "m-201",
+      "memberName": "Alex Rivera",
+      "issueDate": "2026-03-20",
+      "dueDate": "2026-04-03",
+      "returnDate": "2026-10-03",
+      "status": "returned"
+    },
+    {
+      "id": "iss-302",
+      "bookId": "b-102",
+      "bookTitle": "Clean Code: A Handbook of Agile Software Craftsmanship",
+      "memberId": "m-202",
+      "memberName": "Sophia Chen",
+      "issueDate": "2026-03-15",
+      "dueDate": "2026-03-29",
+      "returnDate": "2026-10-03",
+      "status": "returned"
+    },
+    {
+      "id": "iss-303",
+      "bookId": "b-104",
+      "bookTitle": "Dune",
+      "memberId": "m-203",
+      "memberName": "Liam Vance",
+      "issueDate": "2026-03-10",
+      "dueDate": "2026-03-24",
+      "returnDate": "2026-10-03",
+      "status": "returned"
+    }
+  ]
+}
